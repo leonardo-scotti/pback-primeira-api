@@ -41,8 +41,23 @@ const createUser = (req, res) => {
 
 }
 
+//Função do controlador que deleta um usuário
+const deleteUser = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    //Excluir o usuário e retornar
+    const deletedUser = USERMODEL.deleteUser(id);
+
+    if(deleteUser) {
+        res.status(200).json(deletedUser);
+    } else {
+        res.status(400).json({mensagem: 'Informe o ID do usuário corretamente!'})
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
-    createUser
+    createUser,
+    deleteUser
 }

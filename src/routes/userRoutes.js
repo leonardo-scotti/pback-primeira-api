@@ -17,4 +17,8 @@ router.get('/:id', USERCONTROLLER.getUserById);
 router.post('/', USERCONTROLLER.createUser)
 
 
+//Criação da rota que irá deletar um usuário
+router.delete('/:id', USERCONTROLLER.deleteUser)
+
+
 module.exports = router;

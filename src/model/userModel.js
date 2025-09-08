@@ -29,7 +29,7 @@ const findById = (id) => {
 }
 
 //Função para adicionar um novo usuário (INSERT)
-const create = (newUser) => {
+const createUser = (newUser) => {
     //Gerando o ID do próximo usuário
     const newId = users.length > 0 ? users[users.length - 1].id + 1 : 1
 
@@ -47,8 +47,22 @@ const create = (newUser) => {
     return userWithId
 }
 
+//Função parar deletar um usuário
+const deleteUser = (id) => {
+    //Descobrir o index do elemento para excluir
+    const index = users.findIndex(user => user.id === id)
+
+    if(index !== -1) {
+        const [deletedUser] = users.splice(index, 1);
+        return deletedUser;
+    } else {
+        return null;
+    }
+}
+
 module.exports = {
     findAll,
     findById,
-    create
+    createUser,
+    deleteUser
 }
