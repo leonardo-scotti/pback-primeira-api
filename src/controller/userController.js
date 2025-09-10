@@ -22,7 +22,9 @@ const getUserById = (req, res) => {
         //Responder com status code 200 e devolver os dados do usuário em formato json
         res.status(200).json(user);
     } else {
-        res.status(404).json({mensagem: 'Usuário não encontrado!'});
+        res.status(404).json({
+            mensagem: 'Usuário não encontrado!'
+        });
     }
 }
 
@@ -33,7 +35,9 @@ const createUser = (req, res) => {
 
     //Validar se os valores foram enviados
     if(!name || !email) {
-        return res.status(400).json({mensagem: 'Nome e email são obrigatórios!'});
+        return res.status(400).json({
+            mensagem: 'Nome e email são obrigatórios!'
+        });
     } else {
         const newUser = USERMODEL.create({name, email});
         res.status(201).json(newUser);
@@ -51,7 +55,24 @@ const deleteUser = (req, res) => {
     if(deleteUser) {
         res.status(200).json(deletedUser);
     } else {
-        res.status(400).json({mensagem: 'Informe o ID do usuário corretamente!'})
+        res.status(400).json({
+            mensagem: 'Informe o ID do usuário corretamente!'
+        });
+    }
+}
+
+//Método do controller para fazer um update em um usuário
+const updateUser = (req, res) => {
+    const {id, name, email} = req.body;
+
+    //Validar se foi enviado o id
+    if(!id || !name || !email) {
+        return res.status(400).json({
+            message: 'Todas as informações devem ser enviadas (id, name e email)!!'
+        });
+    } else {
+        const dataUser = USERMODEL.updateUser({id, name, email});
+        return res.status(200).json(dataUser);
     }
 }
 
@@ -59,5 +80,6 @@ module.exports = {
     getAllUsers,
     getUserById,
     createUser,
-    deleteUser
+    deleteUser,
+    updateUser
 }
